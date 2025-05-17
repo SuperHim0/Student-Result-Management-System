@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface StudentService {
     Student saveStudent(Student student);
+    Student updateStudent(Student student);
     void deleteStudent(Long id);
     Student getById(Long id);
     Student getByRollId(String rollId);

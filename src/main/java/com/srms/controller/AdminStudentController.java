@@ -1,8 +1,10 @@
 package com.srms.controller;
 
+import com.srms.DTO.Response;
 import com.srms.entity.Student;
 import com.srms.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +20,14 @@ public class AdminStudentController {
 
     @PostMapping
     public ResponseEntity<?> registerStudent(@RequestBody Student student) {
-        Student student1 = studentService.saveStudent(student);
+        studentService.saveStudent(student);
+        return new ResponseEntity<>(new Response("Student Add success"), HttpStatus.OK);
+    }
 
-        return ResponseEntity.ok(student1);
+    @PostMapping("/update")
+    public ResponseEntity<?> updateStudent(@RequestBody Student student){
+        Student updateStudent = studentService.updateStudent(student);
+        return new ResponseEntity<>(updateStudent,HttpStatus.ACCEPTED);
     }
 
     @GetMapping

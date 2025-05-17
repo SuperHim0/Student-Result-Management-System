@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -19,6 +20,16 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public List<Notice> getAllNotice() {
         return noticeRepository.findAll();
+    }
+
+    @Override
+    public Notice updateNotice(Notice notice) {
+        Notice oldNotice = noticeRepository.findById(notice.getId()).orElseThrow();
+        oldNotice.setTitle(notice.getTitle());
+        oldNotice.setDescription(notice.getDescription());
+        oldNotice.setCreatedAt(LocalDateTime.now());
+
+        return noticeRepository.save(oldNotice);
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/notice")
+@CrossOrigin("*")
 public class NoticeController {
 
     @Autowired
@@ -19,6 +20,11 @@ public class NoticeController {
     public ResponseEntity<String> createNote(@RequestBody Notice notice){
         Notice notice1 = noticeService.saveNotice(notice);
         return ResponseEntity.status(HttpStatus.CREATED).body("Notice Created Successfully");
+    }
+    @PostMapping("/update")
+    public ResponseEntity<String> updateNotice(@RequestBody Notice notice){
+        Notice notice1 = noticeService.updateNotice(notice);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Notice updated Successfully");
     }
 
     @DeleteMapping("/delete/{noticeId}")
